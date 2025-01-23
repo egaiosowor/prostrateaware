@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Admin Dashboard</h1>
+
+<div class="dashboard-info">
+    <p>Welcome, {{ current_user.name }}! You are logged in as an admin.</p>
+    <p>This is your admin dashboard. From here, you can manage content, specialists, and view reports.</p>
+
+    <h3>Quick Links:</h3>
+    <ul>
+        <li><a href="{{ url_for('main.review_content') }}">Review Content</a></li>
+        <li><a href="{{ url_for('main.add_specialist') }}">Add Specialist</a></li>
+        <li><a href="{{ url_for('main.view_reports') }}">View Reports</a></li>
+    </ul>
+</div>
+
+<!-- Display Dashboard Stats -->
+<div class="dashboard-stats">
+    <h3>Content Statistics</h3>
+    <p>Total Content: {{ total_content }}</p>
+    <p>Approved Content: {{ approved_content }}</p>
+    <p>Pending Content: {{ pending_content }}</p>
+
+    <h3>Specialists</h3>
+    <p>Total Specialists: {{ total_specialists }}</p>
+</div>
+
+{% endblock %}

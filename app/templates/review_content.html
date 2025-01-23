@@ -1,0 +1,32 @@
+<!-- review_content.html -->
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Review Content</h1>
+
+{% if content_to_review %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for content in content_to_review %}
+                <tr>
+                    <td>{{ content.title }}</td>
+                    <td>{{ content.description }}</td>
+                    <td>
+                        <a href="{{ url_for('main.approve_content', content_id=content.id) }}" class="btn btn-success">Approve</a>
+                        <a href="{{ url_for('main.reject_content', content_id=content.id) }}" class="btn btn-danger">Reject</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No content to review at the moment.</p>
+{% endif %}
+{% endblock %}

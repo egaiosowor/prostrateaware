@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block title %}Symptom Checker{% endblock %}
+{% block content %}
+<h1>Prostate Cancer Symptom Checker</h1>
+<p>Check the symptoms you are experiencing to get an idea of whether you should consult a specialist.</p>
+
+<form id="symptom-checker-form" method="POST">
+    <div class="symptom-list">
+        <label>
+            <input type="checkbox" name="symptoms" value="frequent urination">
+            Frequent urination (especially at night)
+        </label>
+        <label>
+            <input type="checkbox" name="symptoms" value="difficulty starting urination">
+            Difficulty starting urination
+        </label>
+        <label>
+            <input type="checkbox" name="symptoms" value="weak urine flow">
+            Weak or interrupted urine flow
+        </label>
+        <label>
+            <input type="checkbox" name="symptoms" value="pain during urination">
+            Pain or burning sensation during urination
+        </label>
+        <label>
+            <input type="checkbox" name="symptoms" value="blood in urine">
+            Blood in urine or semen
+        </label>
+        <label>
+            <input type="checkbox" name="symptoms" value="erectile dysfunction">
+            Erectile dysfunction
+        </label>
+        <label>
+            <input type="checkbox" name="symptoms" value="pelvic discomfort">
+            Discomfort or pain in the pelvic area
+        </label>
+        <label>
+            <input type="checkbox" name="symptoms" value="leg swelling">
+            Swelling or weakness in the legs
+        </label>
+    </div>
+    <button type="submit" class="btn">Check Symptoms</button>
+</form>
+
+<div id="symptom-checker-output" class="output-message"></div>
+
+<style>
+    .symptom-list label {
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    #symptom-checker-output {
+        margin-top: 1rem;
+        font-size: 1.1rem;
+        font-weight: bold;
+    }
+</style>
+{% endblock %}

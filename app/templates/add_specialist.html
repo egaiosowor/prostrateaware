@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block title %}Add Specialist{% endblock %}
+{% block content %}
+<h1>Add Specialist</h1>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <label for="name">Name:</label>
+    {{ form.name(class="form-input") }}
+    <label for="specialty">Specialty:</label>
+    {{ form.specialty(class="form-input") }}
+    <label for="location">Location:</label>
+    {{ form.location(class="form-input") }}
+    <label for="contact">Contact:</label>
+    {{ form.contact(class="form-input") }}
+    <button type="submit" class="btn">Add Specialist</button>
+</form>
+{% endblock %}

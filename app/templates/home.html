@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block title %}Home - Prostate Cancer Awareness{% endblock %}
+{% block content %}
+<h1>Welcome to Prostate Cancer Awareness Platform</h1>
+<div class="content-grid">
+    {% for content in contents %}
+    <div class="card">
+        <h2>{{ content.title }}</h2>
+        <p>{{ content.description[:150] }}...</p>
+        {% if content.image_url %}
+        <img src="{{ url_for('static', filename='uploads/' ~ content.image_url) }}" alt="{{ content.title }}">
+        {% endif %}
+        <small>Submitted by: {{ content.author.name }}</small>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

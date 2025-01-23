@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block title %}View Reports{% endblock %}
+{% block content %}
+<h1>User Reports</h1>
+<div class="content-grid">
+    {% for report in reports %}
+    <div class="card">
+        <p>{{ report.message }}</p>
+        <small>Reported by: {{ report.user.name }}</small>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

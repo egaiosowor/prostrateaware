@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Prostate Cancer Awareness{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+    <header>
+        <nav class="main-navigation" aria-label="Main Navigation">
+            <ul class="nav-list">
+                <!-- Common Link: Home -->
+                <li><a href="{{ url_for('main.home') }}" class="{% if request.endpoint == 'main.home' %}active{% endif %}">Home</a></li>
+                
+                {% if current_user.is_authenticated %}
+                    {% if current_user.is_admin %}
+                        <!-- Admin-Specific Links -->
+                        <li><a href="{{ url_for('main.dashboard') }}" class="{% if request.endpoint == 'main.dashboard' %}active{% endif %}">Dashboard</a></li>
+                        <li><a href="{{ url_for('main.add_specialist') }}" class="{% if request.endpoint == 'main.add_specialist' %}active{% endif %}">Add Specialist</a></li>
+                        <li><a href="{{ url_for('main.review_content') }}" class="{% if request.endpoint == 'main.review_content' %}active{% endif %}">Review Content</a></li>
+                        <li><a href="{{ url_for('main.view_reports') }}" class="{% if request.endpoint == 'main.view_reports' %}active{% endif %}">View Reports</a></li>
+                        <li><a href="{{ url_for('main.logout') }}">Logout</a></li>
+                    {% else %}
+                        <!-- Non-Admin Authenticated Users -->
+                        <li><a href="{{ url_for('main.symptom_checker') }}" class="{% if request.endpoint == 'main.symptom_checker' %}active{% endif %}">Symptom Checker</a></li>
+                        <li><a href="{{ url_for('main.specialists') }}" class="{% if request.endpoint == 'main.specialists' %}active{% endif %}">Specialists</a></li>
+                        <li><a href="{{ url_for('main.report') }}" class="{% if request.endpoint == 'main.report' %}active{% endif %}">Report Issue</a></li>
+                        <li><a href="{{ url_for('main.submit_content') }}" class="{% if request.endpoint == 'main.submit_content' %}active{% endif %}">Submit Content</a></li>
+                        <li><a href="{{ url_for('main.logout') }}">Logout</a></li>
+                    {% endif %}
+                {% else %}
+                    <!-- Guest User Links -->
+                    <li><a href="{{ url_for('main.login') }}" class="{% if request.endpoint == 'main.login' %}active{% endif %}">Login</a></li>
+                    <li><a href="{{ url_for('main.signup') }}" class="{% if request.endpoint == 'main.signup' %}active{% endif %}">Sign Up</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main class="content">
+        <!-- Optional Fallback Message for Guests -->
+        {% if not current_user.is_authenticated %}
+        <section class="welcome-message">
+            <h1>Welcome to Prostate Cancer Awareness</h1>
+            <p>Please <a href="{{ url_for('main.login') }}">log in</a> or <a href="{{ url_for('main.signup') }}">sign up</a> to access more features.</p>
+        </section>
+        {% endif %}
+        
+        <!-- Main Content Block -->
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Prostate Cancer Awareness. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

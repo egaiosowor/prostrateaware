@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}Submit Content{% endblock %}
+{% block content %}
+<h1>Submit Content</h1>
+
+<!-- Display form errors -->
+{% if form.errors %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for field, errors in form.errors.items() %}
+                {% for error in errors %}
+                    <li>{{ field.label }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+<form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    
+    <label for="title">Title:</label>
+    {{ form.title(class="form-input") }}
+    
+    <label for="description">Description:</label>
+    {{ form.description(class="form-input") }}
+    
+    <label for="image">Image:</label>
+    {{ form.image(class="form-input") }}
+    
+    <button type="submit" class="btn">Submit</button>
+</form>
+{% endblock %}

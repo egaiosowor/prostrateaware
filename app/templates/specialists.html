@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}Specialists{% endblock %}
+{% block content %}
+<h1>Specialists and Centers</h1>
+<div class="content-grid">
+    {% for specialist in specialists %}
+    <div class="card">
+        <h2>{{ specialist.name }}</h2>
+        <p>Specialty: {{ specialist.specialty }}</p>
+        <p>Location: {{ specialist.location }}</p>
+        <p>Contact: {{ specialist.contact }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
