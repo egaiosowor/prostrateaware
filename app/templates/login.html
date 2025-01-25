@@ -1,15 +1,23 @@
-{% extends "layout.html" %}
-{% block title %}Login{% endblock %}
-{% block content %}
-<h1>Login</h1>
-<form method="POST">
+{% extends "layout.html" %} {% block title %}Login{% endblock %} {% block
+content %}
+<section class="login">
+  <div class="login_text-box">
+    <h1>Welcome Back</h1>
+    <p>Enter your credentials to login</p>
+  </div>
+  <form method="POST">
     {{ form.hidden_tag() }}
-    <label for="email">Email:</label>
-    {{ form.email(class="form-input") }}
-    <label for="password">Password:</label>
-    {{ form.password(class="form-input") }}
-    <label for="remember">Remember Me:</label>
-    {{ form.remember }}
+    <label for="email">Email</label>
+    {{ form.email(placeholder="example@mail.com", class="form-input") }}
+    <label for="password">Password</label>
+    {{ form.password(placeholder="Password", class="form-input") }}
     <button type="submit" class="btn">Login</button>
-</form>
+    <p class="login_footer">
+      Don't have an account?
+      <a style="text-decoration: underline" href="{{ url_for('main.signup') }}"
+        >Sign Up</a
+      >
+    </p>
+  </form>
+</section>
 {% endblock %}
