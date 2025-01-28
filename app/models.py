@@ -1,6 +1,7 @@
 from flask_login import UserMixin
 from datetime import datetime
 from app import db
+import sqlalchemy as sa
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -33,6 +34,11 @@ class Content(db.Model):
 
     def __repr__(self):
         return f"<Content {self.title}, Approved: {self.is_approved}>"
+
+    @classmethod
+    def get_paginated_posts(cls, page=1, per_page=3):
+        query = sa.select(cls).order_by(cls.created_at.desc()).filter_by(is_approved=True)
+        return db.paginate(query, page=page, per_page=per_page, error_out=False).items
 
 
 class Specialist(db.Model):

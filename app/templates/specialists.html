@@ -1,15 +1,30 @@
-{% extends "layout.html" %}
-{% block title %}Specialists{% endblock %}
-{% block content %}
-<h1>Specialists and Centers</h1>
-<div class="content-grid">
-    {% for specialist in specialists %}
-    <div class="card">
-        <h2>{{ specialist.name }}</h2>
-        <p>Specialty: {{ specialist.specialty }}</p>
-        <p>Location: {{ specialist.location }}</p>
-        <p>Contact: {{ specialist.contact }}</p>
-    </div>
-    {% endfor %}
-</div>
+{% extends "layout.html" %} {% block title %}Specialists{% endblock %} {% block
+content %}
+<section class="specialists">
+  <h1>Specialists and Centers</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Doctor Name</th>
+        <th>Specialty</th>
+        <th>Location</th>
+        <th>Contact</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for specialist in specialists %}
+      <tr>
+        <td>{{ specialist.id }}</td>
+        <td>{{ specialist.name }}</td>
+        <td>{{ specialist.specialty }}</td>
+        <td>{{ specialist.location }}</td>
+        <td>{{ specialist.contact }}</td>
+      </tr>
+      {% endfor %}
+      <!-- Repeat rows as needed -->
+    </tbody>
+  </table>
+</section>
 {% endblock %}

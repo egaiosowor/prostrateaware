@@ -5,7 +5,7 @@ class Config:
     SECRET_KEY = os.environ.get("SECRET_KEY", "defaultsecretkey")
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL", "sqlite:///app.db")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    UPLOAD_FOLDER = os.path.join(os.getcwd(), "uploads")
+    UPLOAD_FOLDER = os.path.join(os.getcwd(), "app/static/uploads")
     ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
     TRANSLATOR_API_KEY = os.environ.get("TRANSLATOR_API_KEY")
     TRANSLATOR_REGION = os.environ.get("TRANSLATOR_REGION")
@@ -18,5 +18,5 @@ class DevelopmentConfig(Config):
 
 class ProductionConfig(Config):
     """Configuration for production."""
-    DEBUG = False
+    DEBUG = True
     ENV = "production"

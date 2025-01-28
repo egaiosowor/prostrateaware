@@ -1,13 +1,18 @@
-{% extends "layout.html" %}
-{% block title %}View Reports{% endblock %}
-{% block content %}
-<h1>User Reports</h1>
-<div class="content-grid">
+{% extends "layout.html" %} {% block title %}View Reports{% endblock %} {% block
+content %}
+<section class="view-reports">
+  <h1>User Reports</h1>
+  {% if reports %}
+  <div class="content-grid">
     {% for report in reports %}
     <div class="card">
-        <p>{{ report.message }}</p>
-        <small>Reported by: {{ report.user.name }}</small>
+      <p>{{ report.message }}</p>
+      <small>Reported by: {{ report.user.name }}</small>
     </div>
     {% endfor %}
-</div>
+  </div>
+  {% else %}
+  <p style="text-align: center">No reports availabale</p>
+  {% endif %}
+</section>
 {% endblock %}

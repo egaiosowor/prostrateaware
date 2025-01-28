@@ -1,32 +1,53 @@
 <!-- review_content.html -->
-{% extends "layout.html" %}
+{% extends "layout.html" %} {% block content %}
+<section class="review-content">
+  <h1>Review Content</h1>
 
-{% block content %}
-<h1>Review Content</h1>
-
-{% if content_to_review %}
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for content in content_to_review %}
-                <tr>
-                    <td>{{ content.title }}</td>
-                    <td>{{ content.description }}</td>
-                    <td>
-                        <a href="{{ url_for('main.approve_content', content_id=content.id) }}" class="btn btn-success">Approve</a>
-                        <a href="{{ url_for('main.reject_content', content_id=content.id) }}" class="btn btn-danger">Reject</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% else %}
-    <p>No content to review at the moment.</p>
-{% endif %}
+  {% if content_to_review %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for content in content_to_review %}
+      <tr>
+        <td>{{ content.title }}</td>
+        <td>{{ content.description }}</td>
+        <td>
+          <a
+            href="{{ url_for('main.approve_content', content_id=content.id) }}"
+            style="
+              background: green;
+              padding: 5px;
+              color: white;
+              font-size: 14px;
+              border-radius: 7px;
+            "
+          >
+            Approve</a
+          >
+          <a
+            href="{{ url_for('main.reject_content', content_id=content.id) }}"
+            style="
+              background: red;
+              padding: 5px;
+              color: white;
+              font-size: 14px;
+              border-radius: 7px;
+            "
+            >Reject</a
+          >
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p style="text-align: center">No content to review at the moment.</p>
+  {% endif %}
+</section>
 {% endblock %}

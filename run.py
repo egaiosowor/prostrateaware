@@ -9,4 +9,4 @@ app = create_app()
 
 if __name__ == "__main__":
     logging.info("Starting the Flask application...")
-    app.run()
+    app.run(debug=True)

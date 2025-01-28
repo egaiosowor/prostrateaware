@@ -1,59 +1,103 @@
-{% extends "layout.html" %}
-{% block title %}Symptom Checker{% endblock %}
-{% block content %}
-<h1>Prostate Cancer Symptom Checker</h1>
-<p>Check the symptoms you are experiencing to get an idea of whether you should consult a specialist.</p>
-
-<form id="symptom-checker-form" method="POST">
-    <div class="symptom-list">
-        <label>
-            <input type="checkbox" name="symptoms" value="frequent urination">
-            Frequent urination (especially at night)
-        </label>
-        <label>
-            <input type="checkbox" name="symptoms" value="difficulty starting urination">
-            Difficulty starting urination
-        </label>
-        <label>
-            <input type="checkbox" name="symptoms" value="weak urine flow">
-            Weak or interrupted urine flow
-        </label>
-        <label>
-            <input type="checkbox" name="symptoms" value="pain during urination">
-            Pain or burning sensation during urination
-        </label>
-        <label>
-            <input type="checkbox" name="symptoms" value="blood in urine">
-            Blood in urine or semen
-        </label>
-        <label>
-            <input type="checkbox" name="symptoms" value="erectile dysfunction">
-            Erectile dysfunction
-        </label>
-        <label>
-            <input type="checkbox" name="symptoms" value="pelvic discomfort">
-            Discomfort or pain in the pelvic area
-        </label>
-        <label>
-            <input type="checkbox" name="symptoms" value="leg swelling">
-            Swelling or weakness in the legs
-        </label>
+{% extends "layout.html" %} {% block title %}Symptom Checker{% endblock %} {%
+block content %}
+<section class="diagnosis">
+  <div class="diagnosis_text-box">
+    <h1>Prostate Cancer Symptom Checker</h1>
+    <p>
+      Check the symptoms you are experiencing to get an idea of whether you
+      should consult a specialist.
+    </p>
+  </div>
+  <form id="symptom-checker-form" method="POST">
+    <div class="diagnosis-list">
+      <label>
+        <input type="checkbox" name="symptoms" value="frequent urination" />
+        Frequent urination (especially at night)
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          name="symptoms"
+          value="difficulty starting urination"
+        />
+        Difficulty starting urination
+      </label>
+      <label>
+        <input type="checkbox" name="symptoms" value="weak urine flow" />
+        Weak or interrupted urine flow
+      </label>
+      <label>
+        <input type="checkbox" name="symptoms" value="pain during urination" />
+        Pain or burning sensation during urination
+      </label>
+      <label>
+        <input type="checkbox" name="symptoms" value="blood in urine" />
+        Blood in urine or semen
+      </label>
+      <label>
+        <input type="checkbox" name="symptoms" value="erectile dysfunction" />
+        Erectile dysfunction
+      </label>
+      <label>
+        <input type="checkbox" name="symptoms" value="pelvic discomfort" />
+        Discomfort or pain in the pelvic area
+      </label>
+      <label>
+        <input type="checkbox" name="symptoms" value="leg swelling" />
+        Swelling or weakness in the legs
+      </label>
     </div>
     <button type="submit" class="btn">Check Symptoms</button>
-</form>
+  </form>
 
-<div id="symptom-checker-output" class="output-message"></div>
+  <div id="symptom-checker-output" class="output-message"></div>
+</section>
 
 <style>
-    .symptom-list label {
-        display: block;
-        margin-bottom: 0.5rem;
-    }
+  .diagnosis {
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+    margin: auto;
+    padding: 40px 50px 0 50px;
+    max-width: 1440px;
+  }
 
-    #symptom-checker-output {
-        margin-top: 1rem;
-        font-size: 1.1rem;
-        font-weight: bold;
-    }
+  .diagnosis_text-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 6px;
+  }
+
+  .diagnosis_text-box h1 {
+    font-size: 34px;
+    font-weight: 700;
+    color: black;
+    text-align: center;
+  }
+
+  .diagnosis_text-box p {
+    font-size: 16px;
+    color: #272525;
+    text-align: center;
+  }
+
+  .diagnosis-list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+  }
+
+  .diagnosis-list label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  #symptom-checker-output {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
 </style>
 {% endblock %}

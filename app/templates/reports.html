@@ -1,11 +1,12 @@
-{% extends "layout.html" %}
-{% block title %}Report Issue{% endblock %}
-{% block content %}
-<h1>Submit a Report</h1>
-<form method="POST">
+{% extends "layout.html" %} {% block title %}Report Issue{% endblock %} {% block
+content %}
+<section class="report">
+  <h1>Submit a Report</h1>
+  <form method="POST">
     {{ form.hidden_tag() }}
-    <label for="message">Message:</label>
-    {{ form.message(class="form-input") }}
+    <small for="title">Report Issue</small>
+    {{ form.message(class="form-input", placeholder="Report") }}
     <button type="submit" class="btn">Submit</button>
-</form>
+  </form>
+</section>
 {% endblock %}

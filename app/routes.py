@@ -28,11 +28,52 @@ def allowed_file(filename):
 
 ### ROUTES ###
 
-@main.route('/')
+@main.route('/', methods=['GET', 'POST'])
 def home():
     logger.info("Rendering home page.")
-    contents = Content.query.filter_by(is_approved=True).all()
-    return render_template('home.html', contents=contents)
+    form = SubmitContentForm()
+
+    # Get the page number from query parameters
+    page_number = request.args.get('page', 1, type=int) 
+    contents = Content.get_paginated_posts(page=page_number, per_page=10)
+
+
+    
+    # Check form validation and log errors if it fails
+    if form.validate_on_submit():
+        filename = None
+        try:
+            if form.image.data and allowed_file(form.image.data.filename):
+                filename = secure_filename(form.image.data.filename)
+                filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+                form.image.data.save(filepath)
+                logger.info(f"Image uploaded: {filename}")
+                logger.info(f"Upload path: {filepath}")
+
+            content = Content(
+                title=form.title.data,
+                description=form.description.data,
+                image_url=filename,
+                user_id=current_user.id
+            )
+            db.session.add(content)
+            db.session.commit()
+            flash('Content submitted successfully. It will be reviewed by an admin.', 'success')
+            logger.info(f"New content submitted by user {current_user.email}: {content.title}")
+        except Exception as e:
+            db.session.rollback()  # Ensure rollback in case of failure
+            logger.error(f"Error submitting content: {str(e)}")
+            flash('There was an error submitting your content. Please try again later.', 'danger')
+        
+        return redirect(url_for('main.home'))
+    else:
+        # Log all form errors for debugging
+        for field, errors in form.errors.items():
+            for error in errors:
+                logger.warning(f"Form validation error in {field}: {error}")
+        # logger.warning(f"Content submission form validation failed for user {current_user.email}")
+        
+    return render_template('home.html', contents=contents, form=form)
 
 # User Signup
 @main.route('/signup', methods=['GET', 'POST'])
@@ -62,7 +103,6 @@ def signup():
     
     return render_template('signup.html', form=form)
 
-# User Login
 
 # User Login
 @main.route('/login', methods=['GET', 'POST'])
@@ -106,7 +146,7 @@ def logout():
 def submit_content():
     logger.info(f"User {current_user.email} is accessing the submit content page.")
     form = SubmitContentForm()
-
+    
     # Check form validation and log errors if it fails
     if form.validate_on_submit():
         filename = None
@@ -116,6 +156,7 @@ def submit_content():
                 filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
                 form.image.data.save(filepath)
                 logger.info(f"Image uploaded: {filename}")
+                logger.info(f"Upload path: {filepath}")
 
             content = Content(
                 title=form.title.data,
@@ -220,6 +261,7 @@ def dashboard():
     approved_content = Content.query.filter_by(is_approved=True).count()
     pending_content = total_content - approved_content
     total_specialists = Specialist.query.count()
+    user = current_user
     
     logger.info(f"Rendering dashboard page for admin {current_user.email}")
 
@@ -229,7 +271,8 @@ def dashboard():
         total_content=total_content,
         approved_content=approved_content,
         pending_content=pending_content,
-        total_specialists=total_specialists
+        total_specialists=total_specialists,
+        user=user
     )
 
 

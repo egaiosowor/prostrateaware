@@ -1,29 +1,43 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} {% block content %}
+<section class="dashboard">
+  <div class="text-box">
+    <h1>Admin Dashboard</h1>
+    <p>Welcome, {{ user.name }}</p>
+  </div>
 
-{% block content %}
-<h1>Admin Dashboard</h1>
+  <div class="content-container">
+    <div class="dashboard_stats">
+      <div class="dashboard_card">
+        <h3>Total Content</h3>
+        <p>{{ total_content }}</p>
+      </div>
+      <div class="dashboard_card">
+        <h3>Approved Content</h3>
+        <p>{{ approved_content }}</p>
+      </div>
+      <div class="dashboard_card">
+        <h3>Pending Content</h3>
+        <p>{{ pending_content }}</p>
+      </div>
+      <div class="dashboard_card">
+        <h3>Total Specialists</h3>
+        <p>{{ total_specialists}}</p>
+      </div>
+    </div>
 
-<div class="dashboard-info">
-    <p>Welcome, {{ current_user.name }}! You are logged in as an admin.</p>
-    <p>This is your admin dashboard. From here, you can manage content, specialists, and view reports.</p>
-
-    <h3>Quick Links:</h3>
-    <ul>
-        <li><a href="{{ url_for('main.review_content') }}">Review Content</a></li>
-        <li><a href="{{ url_for('main.add_specialist') }}">Add Specialist</a></li>
+    <div class="sidebar">
+      <h3>Quick Links</h3>
+      <ul>
+        <li>
+          <a href="{{ url_for('main.add_specialist') }}">Add Specialists</a>
+        </li>
+        <li>
+          <a href="{{ url_for('main.review_content') }}">Review Content</a>
+        </li>
         <li><a href="{{ url_for('main.view_reports') }}">View Reports</a></li>
-    </ul>
-</div>
-
-<!-- Display Dashboard Stats -->
-<div class="dashboard-stats">
-    <h3>Content Statistics</h3>
-    <p>Total Content: {{ total_content }}</p>
-    <p>Approved Content: {{ approved_content }}</p>
-    <p>Pending Content: {{ pending_content }}</p>
-
-    <h3>Specialists</h3>
-    <p>Total Specialists: {{ total_specialists }}</p>
-</div>
+      </ul>
+    </div>
+  </div>
+</section>
 
 {% endblock %}

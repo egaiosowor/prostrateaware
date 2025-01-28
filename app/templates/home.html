@@ -1,17 +1,67 @@
-{% extends "layout.html" %}
-{% block title %}Home - Prostate Cancer Awareness{% endblock %}
-{% block content %}
-<h1>Welcome to Prostate Cancer Awareness Platform</h1>
-<div class="content-grid">
+{% extends "layout.html" %} {% block title %}Home - Prostate Cancer Awareness{%
+endblock %} {% block content %}
+<section class="home">
+  {% if current_user.is_authenticated %}
+  <form style="width: 100%" method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    <small for="title">What's on your mind?</small>{{
+    form.title(class="form-input", placeholder="Title") }} {{
+    form.description(class="form-input", placeholder="Description") }}
+
+    <label for="image" class="media-upload">
+      {{ form.image() }}<svg
+        width="24"
+        height="24"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        id="image-medium"
+        aria-hidden="true"
+        role="none"
+        data-supported-dps="24x24"
+        fill="currentColor"
+      >
+        <path
+          d="M19 4H5a3 3 0 00-3 3v10a3 3 0 003 3h14a3 3 0 003-3V7a3 3 0 00-3-3zm1 13a1 1 0 01-.29.71L16 14l-2 2-6-6-4 4V7a1 1 0 011-1h14a1 1 0 011 1zm-2-7a2 2 0 11-2-2 2 2 0 012 2z"
+        />
+      </svg>
+      Media
+    </label>
+
+    <button type="submit" class="btn">Post</button>
+  </form>
+  {% else %}
+  <div class="text-box">
+    <h1>Welcome to Prostrate Cancer Awareness Platform</h1>
+    <p>
+      Please <a href="{{ url_for('main.login') }}">Login </a>or
+      <a href="{{ url_for('main.signup') }}"> Register</a> to access more
+      features
+    </p>
+  </div>
+  {% endif %}
+  <div class="post-container">
     {% for content in contents %}
-    <div class="card">
-        <h2>{{ content.title }}</h2>
+    <div class="post-card">
+      <div class="post-card_details">
+        <div id="avatar" class="avatar"></div>
+        <small id="authorName">{{ content.author.name }}</small>
+        <span class="dot"></span>
+        <p id="createdAt" class="created-at">{{ content.created_at }}</p>
+      </div>
+      <div class="post-card_text-box">
+        <h3>{{ content.title }}</h3>
         <p>{{ content.description[:150] }}...</p>
-        {% if content.image_url %}
-        <img src="{{ url_for('static', filename='uploads/' ~ content.image_url) }}" alt="{{ content.title }}">
-        {% endif %}
-        <small>Submitted by: {{ content.author.name }}</small>
+      </div>
+      {% if content.image_url %}
+      <img
+        class="post-card_img"
+        src="{{ url_for('static', filename='uploads/' ~ content.image_url) }}"
+        alt="{{ content.title }}"
+      />
+      {% endif %}
     </div>
     {% endfor %}
-</div>
+  </div>
+</section>
 {% endblock %}

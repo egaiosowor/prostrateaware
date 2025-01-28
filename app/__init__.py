@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 from flask_wtf.csrf import CSRFProtect
+from config import Config
 import os
 
 # Initialize extensions
@@ -18,17 +19,18 @@ def create_app():
     app = Flask(__name__)
 
     # Load configuration
-    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your_secret_key_here')
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI', 'sqlite:///app.db')
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(), 'static/uploads')
-    app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # Max upload size: 16MB
-    app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
+    app.config.from_object(Config)
+    # app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your_secret_key_here')
+    # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI', 'sqlite:///app.db')
+    # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    # app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(), 'static/uploads')
+    # app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # Max upload size: 16MB
+    # app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 
     # Initialize extensions
     db.init_app(app)
     migrate.init_app(app, db)
-    login_manager.init_app(app)
+    login_manager.init_app(app) 
     bcrypt.init_app(app)
     csrf.init_app(app)
 

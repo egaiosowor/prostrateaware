@@ -1,8 +1,8 @@
-{% extends "layout.html" %}
-{% block title %}Add Specialist{% endblock %}
-{% block content %}
-<h1>Add Specialist</h1>
-<form method="POST">
+{% extends "layout.html" %} {% block title %}Add Specialist{% endblock %} {%
+block content %}
+<section class="add-specialist">
+  <h1>Add Specialist</h1>
+  <form method="POST">
     {{ form.hidden_tag() }}
     <label for="name">Name:</label>
     {{ form.name(class="form-input") }}
@@ -13,5 +13,6 @@
     <label for="contact">Contact:</label>
     {{ form.contact(class="form-input") }}
     <button type="submit" class="btn">Add Specialist</button>
-</form>
+  </form>
+</section>
 {% endblock %}
